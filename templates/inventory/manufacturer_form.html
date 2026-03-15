@@ -1,0 +1,45 @@
+<!-- templates/inventory/manufacturer_form.html -->
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h1 class="mb-4">{{ title }}</h1>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="name" class="form-label">Название производителя *</label>
+                <input type="text" class="form-control" id="name" name="name" required
+                       value="{{ manufacturer.name|default:'' }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="country" class="form-label">Страна</label>
+                <input type="text" class="form-control" id="country" name="country"
+                       value="{{ manufacturer.country|default:'' }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="website" class="form-label">Сайт</label>
+                <input type="url" class="form-control" id="website" name="website"
+                       value="{{ manufacturer.website|default:'' }}">
+            </div>
+
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="is_active" name="is_active"
+                       {% if manufacturer.is_active or not manufacturer %}checked{% endif %}>
+                <label class="form-check-label" for="is_active">Активен</label>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a href="/inventory/manufacturers/" class="btn btn-secondary">Отмена</a>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

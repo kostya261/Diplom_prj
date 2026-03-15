@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h1 class="mb-4">{{ title }}</h1>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="tool" class="form-label">Инструмент *</label>
+                <select class="form-control" id="tool" name="tool" required {% if issue %}disabled{% endif %}>
+                    <option value="">-- Выберите инструмент --</option>
+                    {% for tool in tools %}
+                    <option value="{{ tool.id }}" {% if issue and issue.tool.id == tool.id %}selected{% endif %}>
+                        {{ tool.name }} ({{ tool.inventory_number }})
+                    </option>
+                    {% endfor %}
+                </select>
+                {% if issue %}
+                <input type="hidden" name="tool" value="{{ issue.tool.id }}">
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label for="issued_to" class="form-label">Кому выдать *</label>
+                <select class="form-control" id="issued_to" name="issued_to" required>
+                    <option value="">-- Выберите сотрудника --</option>
+                    {% for emp in employees %}
+                    <option value="{{ emp.id }}" {% if issue and issue.issued_to.id == emp.id %}selected{% endif %}>
+                        {{ emp.get_full_name|default:emp.username }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="expected_return_at" class="form-label">Ожидаемая дата возврата</label>
+                <input type="datetime-local" class="form-control" id="expected_return_at" name="expected_return_at"
+                       value="{{ issue.expected_return_at|date:'Y-m-d\TH:i'|default:'' }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="notes" class="form-label">Примечания</label>
+                <textarea class="form-control" id="notes" name="notes" rows="2">{{ issue.notes|default:'' }}</textarea>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a href="/inventory/issues/" class="btn btn-secondary">Отмена</a>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

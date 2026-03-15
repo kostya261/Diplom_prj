@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h1 class="mb-4">{{ title }}</h1>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="name" class="form-label">Название *</label>
+                <input type="text" class="form-control" id="name" name="name" required
+                       value="{{ location.name|default:'' }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="code" class="form-label">Код</label>
+                <input type="text" class="form-control" id="code" name="code"
+                       value="{{ location.code|default:'' }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="location_type" class="form-label">Тип</label>
+                <select class="form-control" id="location_type" name="location_type">
+                    <option value="warehouse" {% if location.location_type == 'warehouse' %}selected{% endif %}>Склад</option>
+                    <option value="rack" {% if location.location_type == 'rack' %}selected{% endif %}>Стеллаж</option>
+                    <option value="shelf" {% if location.location_type == 'shelf' %}selected{% endif %}>Полка</option>
+                    <option value="cell" {% if location.location_type == 'cell' %}selected{% endif %}>Ячейка</option>
+                    <option value="other" {% if location.location_type == 'other' %}selected{% endif %}>Другое</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="parent_location" class="form-label">Входит в</label>
+                <select class="form-control" id="parent_location" name="parent_location">
+                    <option value="">-- Нет --</option>
+                    {% for loc in locations %}
+                        {% if location and loc.id != location.id %}
+                            <option value="{{ loc.id }}" {% if location.parent_location.id == loc.id %}selected{% endif %}>
+                                {{ loc.get_full_path }}
+                            </option>
+                        {% elif not location %}
+                            <option value="{{ loc.id }}">{{ loc.get_full_path }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Описание</label>
+                <textarea class="form-control" id="description" name="description" rows="2">{{ location.description|default:'' }}</textarea>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="is_active" name="is_active"
+                       {% if location.is_active or not location %}checked{% endif %}>
+                <label class="form-check-label" for="is_active">Активно</label>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a href="/inventory/locations/" class="btn btn-secondary">Отмена</a>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Выдача инструмента{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">Выдача инструмента</h1>
+        <a href="/inventory/issues/add/" class="btn btn-success mb-3">Выдать инструмент</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Инструмент</th>
+                    <th>Кому</th>
+                    <th>Кто выдал</th>
+                    <th>Дата выдачи</th>
+                    <th>Ожидаемый возврат</th>
+                    <th>Дата возврата</th>
+                    <th>Статус</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for issue in issues %}
+                <tr>
+                    <td>{{ issue.tool.name }}</td>
+                    <td>{{ issue.issued_to.get_full_name|default:issue.issued_to.username }}</td>
+                    <td>{{ issue.issued_by.get_full_name|default:issue.issued_by.username }}</td>
+                    <td>{{ issue.issued_at|date:"d.m.Y H:i" }}</td>
+                    <td>{{ issue.expected_return_at|date:"d.m.Y H:i"|default:"—" }}</td>
+                    <td>{{ issue.returned_at|date:"d.m.Y H:i"|default:"—" }}</td>
+                    <td>
+                        {% if issue.returned_at %}
+                            <span class="badge bg-success">Возвращён</span>
+                        {% else %}
+                            <span class="badge bg-warning">Выдан</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if not issue.returned_at %}
+                        <form method="post" action="/inventory/issues/{{ issue.id }}/return/" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-warning">Вернуть</button>
+                        </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center">Нет выдач</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
