@@ -1,0 +1,68 @@
+<!-- templates/warehouse/movement_form.html -->
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h1 class="mb-4">{{ title }}</h1>
+
+        <form method="post" action="{{ action_url }}">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="product" class="form-label">Товар</label>
+                <select class="form-control" id="product" name="product" required>
+                    <option value="">-- Выберите товар --</option>
+                    {% for p in products %}
+                    <option value="{{ p.id }}" {% if selected_product == p.id %}selected{% endif %}>
+                        {{ p.article }} - {{ p.name }} (остаток: {{ p.quantity }} {{ p.unit }})
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="movement_type" class="form-label">Тип движения</label>
+                <select class="form-control" id="movement_type" name="movement_type" required>
+                    <option value="incoming" {% if movement_type == 'incoming' %}selected{% endif %}>Приход</option>
+                    <option value="outgoing" {% if movement_type == 'outgoing' %}selected{% endif %}>Расход</option>
+                    <option value="write_off">Списание</option>
+                    <option value="return">Возврат</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="quantity" class="form-label">Количество *</label>
+                <input type="number" step="0.01" class="form-control" id="quantity" name="quantity" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="task" class="form-label">Привязать к задаче (необязательно)</label>
+                <select class="form-control" id="task" name="task">
+                    <option value="">-- Без задачи --</option>
+                    {% for task in tasks %}
+                    <option value="{{ task.id }}">{{ task.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="document_number" class="form-label">Номер документа</label>
+                <input type="text" class="form-control" id="document_number" name="document_number">
+            </div>
+
+            <div class="mb-3">
+                <label for="comment" class="form-label">Комментарий</label>
+                <textarea class="form-control" id="comment" name="comment" rows="2"></textarea>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a href="/warehouse/" class="btn btn-secondary">Отмена</a>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

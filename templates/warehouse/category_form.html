@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h1 class="mb-4">{{ title }}</h1>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="name" class="form-label">Название категории *</label>
+                <input type="text" class="form-control" id="name" name="name" required
+                       value="{{ category.name|default:'' }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="parent_category" class="form-label">Родительская категория</label>
+                <select class="form-control" id="parent_category" name="parent_category">
+                    <option value="">-- Нет --</option>
+                    {% for cat in categories %}
+                        {% if category and cat.id != category.id %}
+                            <option value="{{ cat.id }}" {% if category.parent_category.id == cat.id %}selected{% endif %}>
+                                {{ cat.get_full_path }}
+                            </option>
+                        {% elif not category %}
+                            <option value="{{ cat.id }}">{{ cat.get_full_path }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Описание</label>
+                <textarea class="form-control" id="description" name="description" rows="2">{{ category.description|default:'' }}</textarea>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="is_active" name="is_active"
+                       {% if category.is_active or not category %}checked{% endif %}>
+                <label class="form-check-label" for="is_active">Активна</label>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a href="/warehouse/categories/" class="btn btn-secondary">Отмена</a>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

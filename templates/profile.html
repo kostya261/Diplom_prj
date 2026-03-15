@@ -1,0 +1,93 @@
+<!-- templates/profile.html -->
+{% extends "base.html" %}
+
+{% block title %}Мой профиль{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h1 class="mb-4">Мой профиль</h1>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Основная информация</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Логин:</strong> {{ user.username }}</p>
+                        <p><strong>Имя:</strong> {{ user.first_name|default:"—" }}</p>
+                        <p><strong>Фамилия:</strong> {{ user.last_name|default:"—" }}</p>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
+                        <p><strong>Телефон:</strong> {{ user.phone|default:"—" }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Роль:</strong>
+                            <span class="badge
+                                {% if user.role == 'admin' %}bg-danger
+                                {% elif user.role == 'manager' %}bg-warning
+                                {% else %}bg-info{% endif %}">
+                                {{ user.get_role_display }}
+                            </span>
+                        </p>
+                        <p><strong>Должность:</strong> {{ user.position|default:"—" }}</p>
+                        <p><strong>Отдел:</strong> {{ user.department.name|default:"—" }}</p>
+                        <p><strong>Дата регистрации:</strong> {{ user.date_joined|date:"d.m.Y" }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if user.passport_series or user.passport_number %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Паспортные данные</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p><strong>Серия:</strong> {{ user.passport_series|default:"—" }}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p><strong>Номер:</strong> {{ user.passport_number|default:"—" }}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p><strong>Код подразделения:</strong> {{ user.passport_code|default:"—" }}</p>
+                    </div>
+                </div>
+                <p><strong>Кем выдан:</strong> {{ user.passport_issued_by|default:"—" }}</p>
+                <p><strong>Дата выдачи:</strong> {{ user.passport_issued_date|date:"d.m.Y"|default:"—" }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if user.registration_address or user.residential_address %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Адреса</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Адрес регистрации:</strong> {{ user.registration_address|default:"—" }}</p>
+                <p><strong>Адрес проживания:</strong> {{ user.residential_address|default:"—" }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if user.notes %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Заметки</h5>
+            </div>
+            <div class="card-body">
+                <p>{{ user.notes }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="d-flex justify-content-between">
+            <a href="/" class="btn btn-secondary">На главную</a>
+            <a href="/profile/edit/" class="btn btn-primary">Редактировать профиль</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

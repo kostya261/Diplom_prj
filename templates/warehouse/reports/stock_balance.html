@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Остатки на складе</title>
+    <style>
+        @font-face {
+            font-family: 'DejaVu Sans';
+            src: url('file://{{ font_path }}');
+        }
+        body {
+            font-family: 'DejaVu Sans', sans-serif;
+        }
+            body { font-family: 'DejaVu Sans',Arial, sans-serif; font-size: 12px; }
+            h1 { text-align: center; font-size: 18px; margin-bottom: 20px; }
+            h2 { font-size: 14px; margin-top: 30px; background: #f0f0f0; padding: 5px; }
+            table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+            th, td { border: 1px solid #000; padding: 5px; text-align: left; }
+            th { background: #e0e0e0; }
+            .text-right { text-align: right; }
+            .low-stock { color: red; font-weight: bold; }
+            .footer { margin-top: 30px; font-size: 10px; text-align: right; }
+    </style>
+</head>
+<body>
+<h1>Остатки на складе</h1>
+<p>Дата формирования: {% now "d.m.Y H:i" %}</p>
+
+{% for category in categories %}
+{% if category.products.exists %}
+<h2>{{ category.get_full_path }}</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Артикул</th>
+        <th>Наименование</th>
+        <th>Производитель</th>
+        <th class="text-right">Количество</th>
+        <th>Ед.</th>
+        <th class="text-right">Мин. остаток</th>
+        <th>Место</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for product in category.products.all %}
+    <tr>
+        <td>{{ product.article }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.manufacturer.name|default:"—" }}</td>
+        <td class="text-right {% if product.is_low_stock %}low-stock{% endif %}">
+            {{ product.quantity }}
+        </td>
+        <td>{{ product.unit }}</td>
+        <td class="text-right">{{ product.min_quantity }}</td>
+        <td>{{ product.location|default:"—" }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endfor %}
+
+<div class="footer">
+    Отчёт сгенерирован автоматически. Все цены указаны в рублях.
+</div>
+</body>
+</html>

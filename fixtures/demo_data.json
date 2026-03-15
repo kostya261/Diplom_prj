@@ -1,0 +1,903 @@
+[
+{
+  "model": "users.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$AE3wCVCUwO7OnPCbI6SjFE$3t32tXdfmo+nrnUpebLQtvOK5MZV8FxpDFx3X/nYrdE=",
+    "last_login": "2026-03-15T06:45:40.238Z",
+    "is_superuser": true,
+    "username": "kostya261",
+    "first_name": "Константин",
+    "last_name": "Косарев",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-03-04T21:23:21Z",
+    "role": "admin",
+    "phone": "+79272872582",
+    "email": "money261@yandex.ru",
+    "passport_series": null,
+    "passport_number": null,
+    "passport_issued_by": null,
+    "passport_issued_date": null,
+    "passport_code": null,
+    "registration_address": "",
+    "residential_address": "",
+    "position": "Инженер",
+    "department": 1,
+    "notes": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$GIRf3y8M8Get1WVizTAGUk$2/FWvEiLO60sceXrViNGNeM7rWgiUIz1M0Wxc3bon1g=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "sergey",
+    "first_name": "Сергей",
+    "last_name": "Вольперт",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-05T19:55:04Z",
+    "role": "admin",
+    "phone": null,
+    "email": "ktv10@yandex.ru",
+    "passport_series": null,
+    "passport_number": null,
+    "passport_issued_by": null,
+    "passport_issued_date": null,
+    "passport_code": null,
+    "registration_address": "",
+    "residential_address": "",
+    "position": "Директор",
+    "department": 1,
+    "notes": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$HXLJvbzRWQBdJJXYEuPtYC$uSpvM2W0f653MEmfdLt3KxKTppXjduJNutq49u9+ZG8=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "aleksandr_shkurin",
+    "first_name": "Александр",
+    "last_name": "Шкурин",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-05T19:57:57Z",
+    "role": "employee",
+    "phone": null,
+    "email": "aleksandr_shkurin@mail.ru",
+    "passport_series": null,
+    "passport_number": null,
+    "passport_issued_by": null,
+    "passport_issued_date": null,
+    "passport_code": null,
+    "registration_address": "",
+    "residential_address": "",
+    "position": "Монтажник",
+    "department": 2,
+    "notes": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$I3NwSC9Qs6TQrhYIv1Exv2$NwwPIVD1DXeLfEkjPpA5DsBoiHtNEpULR+cTfnYAnRo=",
+    "last_login": "2026-03-10T20:33:12.696Z",
+    "is_superuser": false,
+    "username": "ed_petrachkov",
+    "first_name": "Эдуард",
+    "last_name": "Петрачков",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-05T20:00:36Z",
+    "role": "employee",
+    "phone": null,
+    "email": "ed_petrachkov@mail.ru",
+    "passport_series": null,
+    "passport_number": null,
+    "passport_issued_by": null,
+    "passport_issued_date": null,
+    "passport_code": null,
+    "registration_address": "",
+    "residential_address": "",
+    "position": "Монтажник",
+    "department": 2,
+    "notes": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$Rhsq0ECCZTnRnsmEF1Jlh1$W9KTJqHCKZWpzg3efLZMpoWV7K3Iunx0kzbnmaqnESc=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "evgeniy_milenin",
+    "first_name": "Евгений",
+    "last_name": "Миленин",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-05T20:03:24Z",
+    "role": "employee",
+    "phone": null,
+    "email": "evgeniy_milenin@mail.ru",
+    "passport_series": null,
+    "passport_number": null,
+    "passport_issued_by": null,
+    "passport_issued_date": null,
+    "passport_code": null,
+    "registration_address": "",
+    "residential_address": "",
+    "position": "Монтажник",
+    "department": 2,
+    "notes": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$vRtHdiJhQdzY5aj6J1JTfP$uPvBghLxvKI8MC42B37kQYpBJfLgFv7sFK09xMApZB0=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "marina83",
+    "first_name": "Марина",
+    "last_name": "Хлопчаткина",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-06T19:43:27Z",
+    "role": "manager",
+    "phone": null,
+    "email": "marina83@mail.ru",
+    "passport_series": null,
+    "passport_number": null,
+    "passport_issued_by": null,
+    "passport_issued_date": null,
+    "passport_code": null,
+    "registration_address": "",
+    "residential_address": "",
+    "position": "Менеджер",
+    "department": 3,
+    "notes": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$eaOeTpBAIFKCpQQeXg7aAa$07Pnp2TzV2dj3lG5mPmF+tVXJAvSFxvWsyb/1e5YfCo=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "olga80",
+    "first_name": "Ольга",
+    "last_name": "Вольперт",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-06T19:45:48Z",
+    "role": "manager",
+    "phone": null,
+    "email": "olga80@mail.ru",
+    "passport_series": null,
+    "passport_number": null,
+    "passport_issued_by": null,
+    "passport_issued_date": null,
+    "passport_code": null,
+    "registration_address": "",
+    "residential_address": "",
+    "position": "Менеджер",
+    "department": 3,
+    "notes": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "tasks.task",
+  "pk": 1,
+  "fields": {
+    "title": "Тестовая задача",
+    "description": "Просто нужно проверить добавление комментариев",
+    "parent_task": 2,
+    "responsible": 3,
+    "created_by": 1,
+    "priority": "medium",
+    "deadline": "2026-03-01",
+    "status": "in_progress",
+    "started_at": "2026-03-10T20:40:02.188Z",
+    "completed_at": null,
+    "created_at": "2026-03-08T10:43:56.213Z",
+    "updated_at": "2026-03-10T20:55:10.488Z",
+    "co_executors": [
+      5,
+      4
+    ]
+  }
+},
+{
+  "model": "tasks.task",
+  "pk": 2,
+  "fields": {
+    "title": "Пробуем заполнять базу через форму",
+    "description": "",
+    "parent_task": 1,
+    "responsible": 2,
+    "created_by": 1,
+    "priority": "critical",
+    "deadline": "2026-03-09",
+    "status": "new",
+    "started_at": null,
+    "completed_at": null,
+    "created_at": "2026-03-08T20:09:52.870Z",
+    "updated_at": "2026-03-08T21:10:19.269Z",
+    "co_executors": [
+      6,
+      7
+    ]
+  }
+},
+{
+  "model": "tasks.task",
+  "pk": 3,
+  "fields": {
+    "title": "Еще одна тестовая задача",
+    "description": "Здесь должна быть очень важная и соответственно детальная информация о задаче.",
+    "parent_task": 2,
+    "responsible": 1,
+    "created_by": 1,
+    "priority": "high",
+    "deadline": "2026-03-12",
+    "status": "in_progress",
+    "started_at": "2026-03-10T20:41:24.575Z",
+    "completed_at": null,
+    "created_at": "2026-03-10T20:32:14.429Z",
+    "updated_at": "2026-03-10T20:55:04.265Z",
+    "co_executors": [
+      3,
+      5,
+      4
+    ]
+  }
+},
+{
+  "model": "tasks.task",
+  "pk": 4,
+  "fields": {
+    "title": "Еще задача",
+    "description": "",
+    "parent_task": null,
+    "responsible": 1,
+    "created_by": 4,
+    "priority": "medium",
+    "deadline": "2026-03-19",
+    "status": "new",
+    "started_at": null,
+    "completed_at": null,
+    "created_at": "2026-03-10T20:55:50.732Z",
+    "updated_at": "2026-03-10T20:55:50.732Z",
+    "co_executors": []
+  }
+},
+{
+  "model": "tasks.taskstatuslog",
+  "pk": 1,
+  "fields": {
+    "task": 1,
+    "status": "on_hold",
+    "changed_at": "2026-03-10T20:40:00.334Z",
+    "changed_by": 4,
+    "comment": ""
+  }
+},
+{
+  "model": "tasks.taskstatuslog",
+  "pk": 2,
+  "fields": {
+    "task": 1,
+    "status": "in_progress",
+    "changed_at": "2026-03-10T20:40:02.186Z",
+    "changed_by": 4,
+    "comment": ""
+  }
+},
+{
+  "model": "tasks.taskstatuslog",
+  "pk": 3,
+  "fields": {
+    "task": 1,
+    "status": "on_hold",
+    "changed_at": "2026-03-10T20:40:06.795Z",
+    "changed_by": 4,
+    "comment": ""
+  }
+},
+{
+  "model": "tasks.taskstatuslog",
+  "pk": 4,
+  "fields": {
+    "task": 3,
+    "status": "in_progress",
+    "changed_at": "2026-03-10T20:41:24.573Z",
+    "changed_by": 4,
+    "comment": ""
+  }
+},
+{
+  "model": "tasks.taskstatuslog",
+  "pk": 5,
+  "fields": {
+    "task": 3,
+    "status": "on_hold",
+    "changed_at": "2026-03-10T20:41:27.350Z",
+    "changed_by": 4,
+    "comment": ""
+  }
+},
+{
+  "model": "tasks.taskstatuslog",
+  "pk": 6,
+  "fields": {
+    "task": 3,
+    "status": "in_progress",
+    "changed_at": "2026-03-10T20:41:29.242Z",
+    "changed_by": 4,
+    "comment": ""
+  }
+},
+{
+  "model": "tasks.taskstatuslog",
+  "pk": 7,
+  "fields": {
+    "task": 3,
+    "status": "on_hold",
+    "changed_at": "2026-03-10T20:41:33.165Z",
+    "changed_by": 4,
+    "comment": ""
+  }
+},
+{
+  "model": "tasks.taskstatuslog",
+  "pk": 8,
+  "fields": {
+    "task": 3,
+    "status": "in_progress",
+    "changed_at": "2026-03-10T20:55:04.267Z",
+    "changed_by": 4,
+    "comment": ""
+  }
+},
+{
+  "model": "tasks.taskstatuslog",
+  "pk": 9,
+  "fields": {
+    "task": 1,
+    "status": "in_progress",
+    "changed_at": "2026-03-10T20:55:10.490Z",
+    "changed_by": 4,
+    "comment": ""
+  }
+},
+{
+  "model": "tasks.taskcomment",
+  "pk": 1,
+  "fields": {
+    "task": 1,
+    "author": 1,
+    "text": "Тестовый комментарий",
+    "created_at": "2026-03-08T10:45:01.399Z",
+    "updated_at": "2026-03-08T10:45:01.399Z"
+  }
+},
+{
+  "model": "departments.department",
+  "pk": 1,
+  "fields": {
+    "name": "Головной офис",
+    "code": "",
+    "parent_department": null,
+    "is_active": true,
+    "created_at": "2026-03-05T19:56:43.092Z"
+  }
+},
+{
+  "model": "departments.department",
+  "pk": 2,
+  "fields": {
+    "name": "Новый цех",
+    "code": "",
+    "parent_department": 1,
+    "is_active": true,
+    "created_at": "2026-03-05T19:58:48.909Z"
+  }
+},
+{
+  "model": "departments.department",
+  "pk": 3,
+  "fields": {
+    "name": "Бухгалтерия",
+    "code": "",
+    "parent_department": 1,
+    "is_active": true,
+    "created_at": "2026-03-05T20:05:13.900Z"
+  }
+},
+{
+  "model": "inventory.storagelocation",
+  "pk": 1,
+  "fields": {
+    "name": "База на Сызранской",
+    "code": "",
+    "description": "",
+    "parent_location": null,
+    "location_type": "warehouse",
+    "is_active": true,
+    "created_at": "2026-03-06T21:08:01.394Z"
+  }
+},
+{
+  "model": "inventory.storagelocation",
+  "pk": 2,
+  "fields": {
+    "name": "База на Комсомольской",
+    "code": "",
+    "description": "",
+    "parent_location": null,
+    "location_type": "warehouse",
+    "is_active": true,
+    "created_at": "2026-03-06T21:08:16.608Z"
+  }
+},
+{
+  "model": "inventory.toolcategory",
+  "pk": 1,
+  "fields": {
+    "name": "Болгарки",
+    "parent_category": null,
+    "description": "",
+    "is_active": true,
+    "created_at": "2026-03-09T20:02:43.322Z"
+  }
+},
+{
+  "model": "inventory.toolmanufacturer",
+  "pk": 1,
+  "fields": {
+    "name": "Milwaukee",
+    "description": "",
+    "website": "https://miltools.ru/?ysclid=mmdwfr8ao2262658672",
+    "country": "",
+    "is_active": true,
+    "created_at": "2026-03-05T20:10:09.464Z"
+  }
+},
+{
+  "model": "inventory.toolmanufacturer",
+  "pk": 2,
+  "fields": {
+    "name": "DeWalt",
+    "description": "",
+    "website": "https://pro-dewalt.by/?ysclid=mmdwi8yyvf814045601",
+    "country": "",
+    "is_active": true,
+    "created_at": "2026-03-05T20:11:36.463Z"
+  }
+},
+{
+  "model": "inventory.toolmanufacturer",
+  "pk": 3,
+  "fields": {
+    "name": "Hilti",
+    "description": "",
+    "website": "https://www.hilti.com/",
+    "country": "",
+    "is_active": true,
+    "created_at": "2026-03-05T20:12:22.243Z"
+  }
+},
+{
+  "model": "inventory.toolmanufacturer",
+  "pk": 4,
+  "fields": {
+    "name": "Интерскол",
+    "description": "",
+    "website": "https://shop.interskol.ru/",
+    "country": "",
+    "is_active": true,
+    "created_at": "2026-03-05T20:12:56.187Z"
+  }
+},
+{
+  "model": "inventory.tool",
+  "pk": 1,
+  "fields": {
+    "name": "Шуруповерт",
+    "inventory_number": "123456",
+    "serial_number": "",
+    "category": null,
+    "manufacturer": 1,
+    "status": "in_use",
+    "location": null,
+    "model": "",
+    "year_of_manufacture": null,
+    "purchase_date": null,
+    "purchase_cost": null,
+    "condition": "",
+    "photo": "",
+    "created_at": "2026-03-08T19:49:39.991Z",
+    "updated_at": "2026-03-10T20:54:31.346Z"
+  }
+},
+{
+  "model": "inventory.tool",
+  "pk": 2,
+  "fields": {
+    "name": "Болгарка",
+    "inventory_number": "12345",
+    "serial_number": "",
+    "category": null,
+    "manufacturer": 2,
+    "status": "in_use",
+    "location": 2,
+    "model": "",
+    "year_of_manufacture": 0,
+    "purchase_date": null,
+    "purchase_cost": null,
+    "condition": "",
+    "photo": "",
+    "created_at": "2026-03-08T20:13:42.942Z",
+    "updated_at": "2026-03-10T20:54:04.204Z"
+  }
+},
+{
+  "model": "inventory.toolissue",
+  "pk": 1,
+  "fields": {
+    "tool": 2,
+    "issued_to": 3,
+    "issued_by": 1,
+    "issued_at": "2026-03-09T20:03:11.928Z",
+    "expected_return_at": "2026-03-10T23:03:00Z",
+    "returned_at": "2026-03-10T20:53:33.923Z",
+    "returned_to": 4,
+    "notes": "",
+    "task": null
+  }
+},
+{
+  "model": "inventory.toolissue",
+  "pk": 2,
+  "fields": {
+    "tool": 1,
+    "issued_to": 5,
+    "issued_by": 4,
+    "issued_at": "2026-03-10T20:42:03.351Z",
+    "expected_return_at": null,
+    "returned_at": "2026-03-10T20:53:32.084Z",
+    "returned_to": 4,
+    "notes": "",
+    "task": null
+  }
+},
+{
+  "model": "inventory.toolissue",
+  "pk": 3,
+  "fields": {
+    "tool": 2,
+    "issued_to": 2,
+    "issued_by": 4,
+    "issued_at": "2026-03-10T20:54:04.176Z",
+    "expected_return_at": "2026-03-20T23:54:00Z",
+    "returned_at": null,
+    "returned_to": null,
+    "notes": "",
+    "task": null
+  }
+},
+{
+  "model": "inventory.toolissue",
+  "pk": 4,
+  "fields": {
+    "tool": 1,
+    "issued_to": 3,
+    "issued_by": 4,
+    "issued_at": "2026-03-10T20:54:31.338Z",
+    "expected_return_at": "2026-03-20T23:54:00Z",
+    "returned_at": null,
+    "returned_to": null,
+    "notes": "",
+    "task": null
+  }
+},
+{
+  "model": "warehouse.productcategory",
+  "pk": 1,
+  "fields": {
+    "name": "Автоматические Ворота",
+    "parent_category": null,
+    "description": "Всё что относится к автоматическим воротам",
+    "is_active": true,
+    "created_at": "2026-03-10T18:50:07.824Z"
+  }
+},
+{
+  "model": "warehouse.productcategory",
+  "pk": 2,
+  "fields": {
+    "name": "Электрика",
+    "parent_category": null,
+    "description": "",
+    "is_active": true,
+    "created_at": "2026-03-10T18:50:16.497Z"
+  }
+},
+{
+  "model": "warehouse.productcategory",
+  "pk": 3,
+  "fields": {
+    "name": "Канцелярия",
+    "parent_category": null,
+    "description": "",
+    "is_active": true,
+    "created_at": "2026-03-10T18:50:31.497Z"
+  }
+},
+{
+  "model": "warehouse.productcategory",
+  "pk": 4,
+  "fields": {
+    "name": "Привода распашных ворот",
+    "parent_category": 1,
+    "description": "Линейные, рычажные привода",
+    "is_active": true,
+    "created_at": "2026-03-10T18:51:11.808Z"
+  }
+},
+{
+  "model": "warehouse.productcategory",
+  "pk": 5,
+  "fields": {
+    "name": "Привода откатных ворот",
+    "parent_category": 1,
+    "description": "",
+    "is_active": true,
+    "created_at": "2026-03-10T18:51:29.977Z"
+  }
+},
+{
+  "model": "warehouse.productcategory",
+  "pk": 6,
+  "fields": {
+    "name": "Привода секционных ворот",
+    "parent_category": 1,
+    "description": "Вальные и потолочные привода",
+    "is_active": true,
+    "created_at": "2026-03-10T18:52:03.620Z"
+  }
+},
+{
+  "model": "warehouse.productmanufacturer",
+  "pk": 1,
+  "fields": {
+    "name": "Alutech",
+    "description": "",
+    "website": "https://alutech-group.com/ru-ru/?s_country=17889&a_o=Y",
+    "country": "Белоруссия",
+    "is_active": true,
+    "created_at": "2026-03-10T18:52:49.869Z"
+  }
+},
+{
+  "model": "warehouse.productmanufacturer",
+  "pk": 2,
+  "fields": {
+    "name": "Came",
+    "description": "",
+    "website": "https://camerussia.com/?ysclid=mmdwlpq1g4681630605",
+    "country": "Италия",
+    "is_active": true,
+    "created_at": "2026-03-10T18:53:02.779Z"
+  }
+},
+{
+  "model": "warehouse.productmanufacturer",
+  "pk": 3,
+  "fields": {
+    "name": "Doorhan",
+    "description": "",
+    "website": "https://moscow.doorhan.ru/",
+    "country": "Россия",
+    "is_active": true,
+    "created_at": "2026-03-10T18:53:16.399Z"
+  }
+},
+{
+  "model": "warehouse.productmanufacturer",
+  "pk": 4,
+  "fields": {
+    "name": "Nice",
+    "description": "",
+    "website": "https://ru-nice.com/?ysclid=mmkyxvhhc8777361556",
+    "country": "Италия",
+    "is_active": true,
+    "created_at": "2026-03-10T18:53:59.338Z"
+  }
+},
+{
+  "model": "warehouse.product",
+  "pk": 1,
+  "fields": {
+    "article": "801MS-0140",
+    "name": "BXL04AGS",
+    "description": "BXL04AGS - Привод 24 В для откатных ворот. Встроенный блок управления ZN6",
+    "category": 5,
+    "manufacturer": 2,
+    "quantity": "20.00",
+    "unit": "шт",
+    "min_quantity": "3.00",
+    "max_quantity": null,
+    "purchase_price": null,
+    "selling_price": "20150.00",
+    "location": 2,
+    "barcode": "",
+    "photo": "",
+    "is_active": true,
+    "created_at": "2026-03-10T18:56:57.893Z",
+    "updated_at": "2026-03-10T18:57:47.127Z"
+  }
+},
+{
+  "model": "warehouse.product",
+  "pk": 2,
+  "fields": {
+    "article": "BX608 KIT",
+    "name": "BX608AGS",
+    "description": "BX608AGS combo KIT - Комплект автоматики для откатных ворот на основе привода BX608 (встроенный блок управления ZBX6N, радиоуправление с фиксированным кодом)",
+    "category": 5,
+    "manufacturer": 2,
+    "quantity": "15.00",
+    "unit": "шт",
+    "min_quantity": "3.00",
+    "max_quantity": null,
+    "purchase_price": null,
+    "selling_price": "38710.00",
+    "location": 2,
+    "barcode": "",
+    "photo": "",
+    "is_active": true,
+    "created_at": "2026-03-10T18:59:12.032Z",
+    "updated_at": "2026-03-10T19:09:58.828Z"
+  }
+},
+{
+  "model": "warehouse.product",
+  "pk": 3,
+  "fields": {
+    "article": "801MS-0300",
+    "name": "BKV15AGS",
+    "description": "BKV15AGS - Привод 36 В для откатных ворот. Встроенный блок управления ZN8",
+    "category": 5,
+    "manufacturer": 2,
+    "quantity": "10.00",
+    "unit": "шт",
+    "min_quantity": "3.00",
+    "max_quantity": null,
+    "purchase_price": null,
+    "selling_price": "83750.00",
+    "location": 2,
+    "barcode": "",
+    "photo": "",
+    "is_active": true,
+    "created_at": "2026-03-10T19:05:53.003Z",
+    "updated_at": "2026-03-10T19:10:05.337Z"
+  }
+},
+{
+  "model": "warehouse.product",
+  "pk": 4,
+  "fields": {
+    "article": "RTO1000MKIT-SM.FULL",
+    "name": "ROTEO 1000MKIT-SM FULL",
+    "description": "ALUTECH Комплект для автоматизации откатных ворот до 1000 кг, без реек, ROTEO 1000MKIT-SM FULL",
+    "category": 5,
+    "manufacturer": 1,
+    "quantity": "10.00",
+    "unit": "шт",
+    "min_quantity": "3.00",
+    "max_quantity": null,
+    "purchase_price": null,
+    "selling_price": "33834.00",
+    "location": 2,
+    "barcode": "",
+    "photo": "",
+    "is_active": true,
+    "created_at": "2026-03-10T19:08:33.132Z",
+    "updated_at": "2026-03-10T19:10:15.497Z"
+  }
+},
+{
+  "model": "warehouse.product",
+  "pk": 5,
+  "fields": {
+    "article": "ARW-1000KIT",
+    "name": "ARW-1000KIT",
+    "description": "AN-MOTORS Комплект для автоматизации откатных ворот до 1000 кг., ARW-1000KIT",
+    "category": 5,
+    "manufacturer": 1,
+    "quantity": "5.00",
+    "unit": "шт",
+    "min_quantity": "3.00",
+    "max_quantity": null,
+    "purchase_price": null,
+    "selling_price": "16866.00",
+    "location": 2,
+    "barcode": "",
+    "photo": "",
+    "is_active": true,
+    "created_at": "2026-03-10T19:09:41.314Z",
+    "updated_at": "2026-03-10T19:09:41.314Z"
+  }
+},
+{
+  "model": "warehouse.product",
+  "pk": 6,
+  "fields": {
+    "article": "RB1000",
+    "name": "NICE RB1000",
+    "description": "NICE RB1000 Электромеханический привод серии ROBUS для откатных ворот массой до  1000 кг.",
+    "category": 5,
+    "manufacturer": 4,
+    "quantity": "17.00",
+    "unit": "шт",
+    "min_quantity": "3.00",
+    "max_quantity": null,
+    "purchase_price": null,
+    "selling_price": "47900.00",
+    "location": 2,
+    "barcode": "",
+    "photo": "",
+    "is_active": true,
+    "created_at": "2026-03-10T19:37:35.897Z",
+    "updated_at": "2026-03-10T19:37:35.897Z"
+  }
+},
+{
+  "model": "warehouse.product",
+  "pk": 7,
+  "fields": {
+    "article": "SL-500KIT",
+    "name": "SL-500KIT",
+    "description": "DOORHAN Комплект привода SL-500KIT, для откатных ворот до 500 кг",
+    "category": 5,
+    "manufacturer": 3,
+    "quantity": "12.00",
+    "unit": "шт",
+    "min_quantity": "3.00",
+    "max_quantity": null,
+    "purchase_price": null,
+    "selling_price": "27571.00",
+    "location": 2,
+    "barcode": "",
+    "photo": "",
+    "is_active": true,
+    "created_at": "2026-03-10T19:39:13.072Z",
+    "updated_at": "2026-03-10T19:39:13.072Z"
+  }
+}
+]

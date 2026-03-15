@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Профиль сотрудника{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h1 class="mb-4">{{ employee.get_full_name|default:employee.username }}</h1>
+
+        <div class="card">
+            <div class="card-body">
+                <p><strong>Должность:</strong> {{ employee.position|default:"—" }}</p>
+                <p><strong>Отдел:</strong> {{ employee.department.name|default:"—" }}</p>
+                <p><strong>Email:</strong> {{ employee.email }}</p>
+                <p><strong>Телефон:</strong> {{ employee.phone|default:"—" }}</p>
+                <p><strong>Роль:</strong> {{ employee.get_role_display }}</p>
+            </div>
+        </div>
+
+        <a href="/employees/" class="btn btn-secondary mt-3">Назад к списку</a>
+    </div>
+</div>
+{% endblock %}

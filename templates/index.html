@@ -1,0 +1,52 @@
+<!-- templates/index.html -->
+{% extends "base.html" %}
+
+{% block title %}Главная - TaskTracker{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">TaskTracker</h1>
+        <p class="lead">Система управления задачами, инструментом и складом</p>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Сотрудники</h5>
+                <p class="card-text">Управление сотрудниками, отделами, ролями</p>
+                <a href="/employees/" class="btn btn-primary">Перейти</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Задачи</h5>
+                <p class="card-text">Создание и отслеживание задач, назначение исполнителей</p>
+                <a href="/tasks/" class="btn btn-primary">Перейти</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Инструмент</h5>
+                <p class="card-text">Учёт инструмента, выдача и возврат</p>
+                <a href="/inventory/" class="btn btn-primary">Перейти</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Склад</h5>
+                <p class="card-text">Учёт товаров, приход/расход, остатки</p>
+                <a href="/warehouse/" class="btn btn-primary">Перейти</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

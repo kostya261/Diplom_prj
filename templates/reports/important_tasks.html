@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Важные задачи{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">Важные задачи</h1>
+        <p class="lead">Задачи, которые не взяты в работу, но блокируют другие задачи</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Задача</th>
+                    <th>Срок</th>
+                    <th>Рекомендуемый сотрудник</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody id="important-tasks-body">
+                <tr>
+                    <td colspan="4" class="text-center">Загрузка...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/api/tasks/important_tasks/')
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('important-tasks-body');
+                tbody.innerHTML = '';
+
+                if (data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" class="text-center">Нет важных задач</td></tr>';
+                    return;
+                }
+
+                data.forEach(item => {
+                    const row = `
+                        <tr>
+                            <td>${item.task}</td>
+                            <td>${item.deadline}</td>
+                            <td><span class="badge bg-success">${item.candidate}</span></td>
+                            <td>
+                                <a href="/tasks/?search=${encodeURIComponent(item.task)}" class="btn btn-sm btn-primary">Найти задачу</a>
+                            </td>
+                        </tr>
+                    `;
+                    tbody.innerHTML += row;
+                });
+            })
+            .catch(error => {
+                document.getElementById('important-tasks-body').innerHTML =
+                    '<tr><td colspan="4" class="text-center text-danger">Ошибка загрузки</td></tr>';
+            });
+    });
+</script>
+{% endblock %}

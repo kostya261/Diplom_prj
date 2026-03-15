@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Наряд-заказ №{{ task.id }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; font-size: 12px; margin: 20px; }
+        h1 { text-align: center; font-size: 18px; }
+        .header { margin-bottom: 20px; }
+        .header table { width: 100%; }
+        .header td { padding: 5px; }
+        .section { margin-top: 20px; }
+        .section-title { font-weight: bold; background: #f0f0f0; padding: 5px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #000; padding: 5px; text-align: left; }
+        th { background: #e0e0e0; }
+    </style>
+</head>
+<body>
+    <h1>НАРЯД-ЗАКАЗ №{{ task.id }}</h1>
+
+    <div class="header">
+        <table>
+            <tr><td><strong>Задача:</strong> {{ task.title }}</td>
+                <td><strong>Срок:</strong> {{ task.deadline|date:"d.m.Y" }}</td></tr>
+            <tr><td><strong>Ответственный:</strong> {{ task.responsible.get_full_name|default:task.responsible.username }}</td>
+                <td><strong>Статус:</strong> {{ task.get_status_display }}</td></tr>
+        </table>
+    </div>
+
+    {% with materials=task.stock_movements.all %}
+    {% if materials %}
+    <div class="section">
+        <div class="section-title">Материалы</div>
+        <table>
+            <tr><th>Товар</th><th>Артикул</th><th>Кол-во</th><th>Ед.</th></tr>
+            {% for move in materials %}
+            <tr>
+                <td>{{ move.product.name }}</td>
+                <td>{{ move.product.article }}</td>
+                <td>{{ move.quantity }}</td>
+                <td>{{ move.product.unit }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    {% with tools=task.tool_issues.all %}
+    {% if tools %}
+    <div class="section">
+        <div class="section-title">Инструмент</div>
+        <table>
+            <tr><th>Инструмент</th><th>Инв. №</th><th>Дата выдачи</th><th>Ожидаемый возврат</th></tr>
+            {% for issue in tools %}
+            <tr>
+                <td>{{ issue.tool.name }}</td>
+                <td>{{ issue.tool.inventory_number }}</td>
+                <td>{{ issue.issued_at|date:"d.m.Y H:i" }}</td>
+                <td>{{ issue.expected_return_at|date:"d.m.Y H:i"|default:"—" }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <p style="text-align: right; margin-top: 50px;">Дата: {% now "d.m.Y" %}</p>
+</body>
+</html>

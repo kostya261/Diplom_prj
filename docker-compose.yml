@@ -1,0 +1,52 @@
+# docker-compose.yml
+version: '3.9'
+
+services:
+  db:
+    image: postgres:15
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build: .
+    restart: always
+    command: >
+      sh -c "
+        echo 'Ожидаем готовности базы данных...' &&
+        while ! nc -z db 5432; do
+          sleep 1
+        done &&
+        echo 'База готова, запускаем миграции...' &&
+        python manage.py migrate &&
+        echo 'Запускаем сервер...' &&
+        python manage.py runserver 0.0.0.0:8000
+      "
+    volumes:
+      - static_volume:/app/static
+      - media_volume:/app/media
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:

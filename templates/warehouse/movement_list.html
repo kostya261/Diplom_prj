@@ -1,0 +1,60 @@
+<!-- templates/warehouse/movement_list.html -->
+{% extends "base.html" %}
+
+{% block title %}Движения{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">Движения товаров</h1>
+        <a href="/warehouse/movements/add/" class="btn btn-success mb-3">Новое движение</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Дата</th>
+                <th>Товар</th>
+                <th>Тип</th>
+                <th>Количество</th>
+                <th>Задача</th>
+                <th>Кто</th>
+                <th>Комментарий</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for move in movements %}
+            <tr>
+                <td>{{ move.created_at|date:"d.m.Y H:i" }}</td>
+                <td>{{ move.product.name }}</td>
+                <td>
+                        <span class="badge
+                            {% if move.movement_type == 'incoming' %}bg-success
+                            {% elif move.movement_type == 'outgoing' %}bg-warning
+                            {% elif move.movement_type == 'write_off' %}bg-danger
+                            {% else %}bg-secondary{% endif %}">
+                            {{ move.get_movement_type_display }}
+                        </span>
+                </td>
+                <td>{{ move.quantity }} {{ move.product.unit }}</td>
+                <td>{{ move.task.title|default:"—" }}</td>
+                <td>{{ move.created_by.get_full_name|default:move.created_by.username }}</td>
+                <td>{{ move.comment|truncatechars:30 }}</td>
+                <td>
+                    <a href="/warehouse/movements/{{ move.id }}/{% if move.movement_type == 'incoming' %}incoming{% else %}outgoing{% endif %}/"
+                       class="btn btn-sm btn-info" target="_blank">PDF</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="text-center">Нет движений</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

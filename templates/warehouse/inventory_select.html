@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Инвентаризация{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h1 class="mb-4">Инвентаризация</h1>
+
+        <div class="card">
+            <div class="card-body">
+                <form method="get" action="{% url 'report_inventory' %}">
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Выберите склад</label>
+                        <select class="form-control" id="location" name="location" required>
+                            <option value="">-- Выберите склад --</option>
+                            {% for loc in locations %}
+                            <option value="{{ loc.id }}" {% if selected_location == loc.id %}selected{% endif %}>
+                                {{ loc.get_full_path }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Сформировать инвентаризационную опись</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

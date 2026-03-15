@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Перемещение товара{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h1 class="mb-4">Перемещение товара</h1>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="product" class="form-label">Товар</label>
+                <select class="form-control" id="product" name="product" required>
+                    <option value="">-- Выберите товар --</option>
+                    {% for product in products %}
+                    <option value="{{ product.id }}">
+                        {{ product.name }} (доступно: {{ product.quantity }} {{ product.unit }})
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="from_location" class="form-label">Откуда</label>
+                <select class="form-control" id="from_location" name="from_location" required>
+                    <option value="">-- Выберите склад --</option>
+                    {% for loc in locations %}
+                    <option value="{{ loc.id }}">{{ loc.get_full_path }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="to_location" class="form-label">Куда</label>
+                <select class="form-control" id="to_location" name="to_location" required>
+                    <option value="">-- Выберите склад --</option>
+                    {% for loc in locations %}
+                    <option value="{{ loc.id }}">{{ loc.get_full_path }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="quantity" class="form-label">Количество</label>
+                <input type="number" step="0.01" class="form-control" id="quantity" name="quantity" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="comment" class="form-label">Комментарий</label>
+                <textarea class="form-control" id="comment" name="comment" rows="2"></textarea>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a href="/warehouse/" class="btn btn-secondary">Отмена</a>
+                <button type="submit" class="btn btn-primary">Переместить</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
