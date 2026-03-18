@@ -135,6 +135,43 @@
                 </div>
             </div>
 
+            <!-- Блок комментариев -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Комментарии</h5>
+                </div>
+                <div class="card-body">
+                    {% if task %}
+                        <!-- Список комментариев -->
+                        <div class="mb-4">
+                            {% for comment in comments %}
+                            <div class="border-bottom mb-3 pb-2">
+                                <div class="d-flex justify-content-between">
+                                    <strong>{{ comment.author.get_full_name|default:comment.author.username }}</strong>
+                                    <small class="text-muted">{{ comment.created_at|date:"d.m.Y H:i" }}</small>
+                                </div>
+                                <p class="mb-1">{{ comment.text }}</p>
+                            </div>
+                            {% empty %}
+                            <p class="text-muted">Пока нет комментариев</p>
+                            {% endfor %}
+                        </div>
+
+                        <!-- Форма добавления комментария -->
+                        <form method="post" action="/tasks/{{ task.id }}/add_comment/">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="comment_text" class="form-label">Добавить комментарий</label>
+                                <textarea class="form-control" id="comment_text" name="text" rows="2" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-primary">Отправить</button>
+                        </form>
+                    {% else %}
+                        <p class="text-muted">Комментарии можно добавлять после создания задачи</p>
+                    {% endif %}
+                </div>
+            </div>
+
             <div class="d-flex justify-content-between">
                 <a href="/tasks/" class="btn btn-secondary">Отмена</a>
                 <button type="submit" class="btn btn-primary">Сохранить</button>

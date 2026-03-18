@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from tasks.models import Task
+from tasks.models import Task, TaskComment
 from users.models import User
 from django.http import HttpResponse
 from warehouse.views_web import render_to_pdf
@@ -22,9 +22,11 @@ def task_form(request, task_id=None):
     if task_id:
         task = get_object_or_404(Task, id=task_id)
         title = f"Редактирование: {task.title}"
+        comments = TaskComment.objects.filter(task=task).order_by('-created_at')
     else:
         task = None
         title = "Создание задачи"
+        comments = []
 
     if request.method == 'POST':
         data = request.POST
@@ -81,6 +83,7 @@ def task_form(request, task_id=None):
         'task': task,
         'employees': employees,
         'tasks': tasks,
+        'comments': comments,  # добавляем комментарии
         'title': title,
         'action_url': request.path
     })
