@@ -5,6 +5,7 @@ from tasks.models import Task, TaskComment
 from users.models import User
 from django.http import HttpResponse
 from warehouse.views_web import render_to_pdf
+from datetime import date, timedelta
 
 
 @login_required
@@ -15,28 +16,31 @@ def task_list(request):
 
 @login_required
 def task_form(request, task_id=None):
-    """Создание или редактирование задачи"""
     employees = User.objects.filter(is_active=True)
     tasks = Task.objects.all()
 
     if task_id:
         task = get_object_or_404(Task, id=task_id)
         title = f"Редактирование: {task.title}"
-        comments = TaskComment.objects.filter(task=task).order_by('-created_at')
     else:
         task = None
         title = "Создание задачи"
-        comments = []
 
     if request.method == 'POST':
         data = request.POST
+
+        # Получаем deadline с проверкой
+        deadline = data.get('deadline')
+        if not deadline:
+            # Если deadline пустой, ставим сегодня + 7 дней
+            deadline = (date.today() + timedelta(days=7)).isoformat()
 
         if task:
             # Обновление существующей
             task.title = data.get('title')
             task.description = data.get('description', '')
             task.priority = data.get('priority', 'medium')
-            task.deadline = data.get('deadline')
+            task.deadline = deadline
             task.status = data.get('status', 'new')
 
             responsible_id = data.get('responsible')
@@ -61,7 +65,7 @@ def task_form(request, task_id=None):
                 title=data.get('title'),
                 description=data.get('description', ''),
                 priority=data.get('priority', 'medium'),
-                deadline=data.get('deadline'),
+                deadline=deadline,
                 status=data.get('status', 'new'),
                 responsible_id=data.get('responsible'),
                 created_by=request.user
@@ -72,7 +76,6 @@ def task_form(request, task_id=None):
                 task.parent_task_id = parent_id
                 task.save()
 
-            # Добавляем соисполнителей
             co_executors_ids = data.getlist('co_executors')
             if co_executors_ids:
                 task.co_executors.set(co_executors_ids)
@@ -83,7 +86,6 @@ def task_form(request, task_id=None):
         'task': task,
         'employees': employees,
         'tasks': tasks,
-        'comments': comments,  # добавляем комментарии
         'title': title,
         'action_url': request.path
     })
@@ -130,3 +132,29 @@ def change_task_status(request, task_id, new_status):
         messages.error(request, 'Не удалось изменить статус')
 
     return redirect('task_list')
+
+
+@login_required
+def add_comment(request, task_id):
+    """Добавление комментария к задаче"""
+    task = get_object_or_404(Task, id=task_id)
+
+    # Проверка прав (как в API)
+    if request.user.role == 'employee':
+        if task.responsible != request.user and request.user not in task.co_executors.all():
+            messages.error(request, 'Вы можете комментировать только свои задачи')
+            return redirect('task_edit', task_id=task.id)
+
+    if request.method == 'POST':
+        text = request.POST.get('text')
+        if text:
+            TaskComment.objects.create(
+                task=task,
+                author=request.user,
+                text=text
+            )
+            messages.success(request, 'Комментарий добавлен')
+        else:
+            messages.error(request, 'Текст комментария не может быть пустым')
+
+    return redirect('task_edit', task_id=task.id)
