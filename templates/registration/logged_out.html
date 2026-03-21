@@ -1,0 +1,20 @@
+<!-- templates/registration/logged_out.html -->
+{% extends "base.html" %}
+
+{% block title %}Выход{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h4>Выход из системы</h4>
+            </div>
+            <div class="card-body">
+                <p>Вы успешно вышли из системы.</p>
+                <a href="/login/" class="btn btn-primary">Войти снова</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

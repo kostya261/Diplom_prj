@@ -1,0 +1,69 @@
+<!-- templates/inventory/tool_list.html -->
+{% extends "base.html" %}
+
+{% block title %}Инструмент{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">Инструмент</h1>
+        <a href="/inventory/add/" class="btn btn-success mb-3">Добавить инструмент</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Наименование</th>
+                <th>Инв. номер</th>
+                <th>Категория</th>
+                <th>Производитель</th>
+                <th>Статус</th>
+                <th>Место хранения</th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for tool in tools %}
+            <tr>
+                <td>{{ tool.id }}</td>
+                <td>{{ tool.name }}</td>
+                <td>{{ tool.inventory_number }}</td>
+                <td>{{ tool.category.name|default:"—" }}</td>
+                <td>{{ tool.manufacturer.name|default:"—" }}</td>
+                <td>
+                        <span class="badge
+                            {% if tool.status == 'available' %}bg-success
+                            {% elif tool.status == 'in_use' %}bg-warning
+                            {% elif tool.status == 'maintenance' %}bg-secondary
+                            {% elif tool.status == 'write_off' %}bg-danger
+                            {% endif %}">
+                            {{ tool.get_status_display }}
+                        </span>
+                </td>
+                <td>{{ tool.location.get_full_path|default:"—" }}</td>
+                <td>
+                    <a href="/inventory/{{ tool.id }}/edit/" class="btn btn-sm btn-primary">✏️</a>
+                    <button class="btn btn-sm btn-danger" onclick="deleteTool({{ tool.id }})">🗑️</button>
+                    {% if tool.status == 'available' %}
+                    <button class="btn btn-sm btn-success">Выдать</button>
+                    {% elif tool.status == 'in_use' %}
+                    <button class="btn btn-sm btn-warning">Вернуть</button>
+                    {% endif %}
+                </td>
+                <td><a href="/inventory/{{ tool.id }}/report/" class="btn btn-sm btn-info">PDF</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8" class="text-center">Нет инструментов</td>
+            </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

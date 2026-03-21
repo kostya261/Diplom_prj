@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Инструмент у сотрудников{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">Инструмент у сотрудников</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Сотрудник</th>
+                    <th>Инструмент</th>
+                    <th>Инв. номер</th>
+                    <th>Дата выдачи</th>
+                    <th>Кто выдал</th>
+                    <th>Плановый возврат</th>
+                    <th>Статус</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for issue in active_issues %}
+                <tr>
+                    <td>{{ issue.issued_to.get_full_name|default:issue.issued_to.username }}</td>
+                    <td>{{ issue.tool.name }}</td>
+                    <td>{{ issue.tool.inventory_number }}</td>
+                    <td>{{ issue.issued_at|date:"d.m.Y H:i" }}</td>
+                    <td>{{ issue.issued_by.get_full_name|default:issue.issued_by.username }}</td>
+                    <td>{{ issue.expected_return_at|date:"d.m.Y H:i"|default:"—" }}</td>
+                    <td>
+                        <span class="badge bg-warning">На руках</span>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center">Весь инструмент на месте</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

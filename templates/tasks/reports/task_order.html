@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Наряд-заказ №{{ task.id }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; font-size: 12px; }
+        h1 { text-align: center; font-size: 18px; margin-bottom: 20px; }
+        .header { margin-bottom: 30px; }
+        .header table { width: 100%; }
+        .header td { padding: 5px; }
+        .section { margin-bottom: 20px; }
+        .section-title { font-weight: bold; background: #f0f0f0; padding: 5px; margin-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #000; padding: 5px; text-align: left; }
+        th { background: #e0e0e0; }
+        .footer { margin-top: 50px; }
+        .signature { float: right; width: 200px; text-align: center; }
+        .signature-line { border-top: 1px solid #000; margin-top: 30px; padding-top: 5px; }
+    </style>
+</head>
+<body>
+    <h1>НАРЯД-ЗАКАЗ №{{ task.id }}</h1>
+
+    <div class="header">
+        <table>
+            <tr>
+                <td><strong>Дата создания:</strong> {{ task.created_at|date:"d.m.Y H:i" }}</td>
+                <td><strong>Срок выполнения:</strong> {{ task.deadline|date:"d.m.Y" }}</td>
+            </tr>
+            <tr>
+                <td><strong>Заказчик/Задача:</strong> {{ task.title }}</td>
+                <td><strong>Приоритет:</strong> {{ task.get_priority_display }}</td>
+            </tr>
+            <tr>
+                <td><strong>Ответственный:</strong> {{ task.responsible.get_full_name|default:task.responsible.username }}</td>
+                <td><strong>Статус:</strong> {{ task.get_status_display }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Описание работ</div>
+        <p>{{ task.description|default:"—"|linebreaks }}</p>
+    </div>
+
+    {% if task.co_executors.exists %}
+    <div class="section">
+        <div class="section-title">Соисполнители</div>
+        <ul>
+            {% for exec in task.co_executors.all %}
+            <li>{{ exec.get_full_name|default:exec.username }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    {% with movements=task.stock_movements.all %}
+    {% if movements %}
+    <div class="section">
+        <div class="section-title">Материалы</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Товар</th>
+                    <th>Артикул</th>
+                    <th class="text-right">Количество</th>
+                    <th>Ед.</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for move in movements %}
+                <tr>
+                    <td>{{ move.product.name }}</td>
+                    <td>{{ move.product.article }}</td>
+                    <td class="text-right">{{ move.quantity }}</td>
+                    <td>{{ move.product.unit }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="footer">
+        <div class="signature">
+            <div class="signature-line">Подпись ответственного</div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+</body>
+</html>

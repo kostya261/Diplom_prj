@@ -1,0 +1,185 @@
+<!-- templates/tasks/task_form.html -->
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h1 class="mb-4">{{ title }}</h1>
+
+        <!-- Основная форма задачи -->
+        <form method="post" action="{{ action_url }}">
+            {% csrf_token %}
+
+            {% if task %}
+            <div class="mb-3">
+                <a href="/tasks/{{ task.id }}/report/" class="btn btn-info" target="_blank">Печатная форма (PDF)</a>
+                <a href="/tasks/{{ task.id }}/order/" class="btn btn-secondary" target="_blank">Наряд-заказ (PDF)</a>
+            </div>
+            {% endif %}
+
+            <!-- Основные данные -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Основные данные</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Название задачи *</label>
+                        <input type="text" class="form-control" id="title" name="title" required
+                               value="{{ task.title|default:'' }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Описание</label>
+                        <textarea class="form-control" id="description" name="description" rows="3">{{ task.description|default:'' }}</textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="priority" class="form-label">Приоритет</label>
+                            <select class="form-control" id="priority" name="priority">
+                                <option value="low" {% if task.priority == 'low' %}selected{% endif %}>Низкий</option>
+                                <option value="medium" {% if task.priority == 'medium' or not task %}selected{% endif %}>Средний</option>
+                                <option value="high" {% if task.priority == 'high' %}selected{% endif %}>Высокий</option>
+                                <option value="critical" {% if task.priority == 'critical' %}selected{% endif %}>Критический</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="deadline" class="form-label">Срок выполнения *</label>
+                            <input type="date" class="form-control" id="deadline" name="deadline" required
+                                   value="{{ task.deadline|date:'Y-m-d'|default:'' }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Назначение -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Назначение</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="responsible" class="form-label">Ответственный *</label>
+                        <select class="form-control" id="responsible" name="responsible" required>
+                            <option value="">-- Выберите ответственного --</option>
+                            {% for emp in employees %}
+                            <option value="{{ emp.id }}" {% if task.responsible.id == emp.id %}selected{% endif %}>
+                                {{ emp.get_full_name|default:emp.username }} ({{ emp.get_role_display }})
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="co_executors" class="form-label">Соисполнители</label>
+                        <select class="form-control" id="co_executors" name="co_executors" multiple size="5">
+                            {% for emp in employees %}
+                            <option value="{{ emp.id }}"
+                                    {% if task and emp in task.co_executors.all %}selected{% endif %}>
+                                {{ emp.get_full_name|default:emp.username }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <small class="text-muted">Удерживайте Ctrl для выбора нескольких</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="parent_task" class="form-label">Родительская задача</label>
+                        <select class="form-control" id="parent_task" name="parent_task">
+                            <option value="">-- Нет --</option>
+                            {% for t in tasks %}
+                            {% if t.id != task.id %}
+                            <option value="{{ t.id }}" {% if task.parent_task.id == t.id %}selected{% endif %}>
+                                {{ t.title }}
+                            </option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Статус -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Статус</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Текущий статус</label>
+                        <select class="form-control" id="status" name="status">
+                            <option value="new" {% if task.status == 'new' or not task %}selected{% endif %}>Новая</option>
+                            <option value="in_progress" {% if task.status == 'in_progress' %}selected{% endif %}>В работе</option>
+                            <option value="on_hold" {% if task.status == 'on_hold' %}selected{% endif %}>На паузе</option>
+                            <option value="done" {% if task.status == 'done' %}selected{% endif %}>Завершена</option>
+                        </select>
+                    </div>
+
+                    {% if task %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Создана:</strong> {{ task.created_at|date:"d.m.Y H:i" }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Кем создана:</strong> {{ task.created_by.get_full_name|default:task.created_by.username }}</p>
+                        </div>
+                    </div>
+
+                    {% if task.started_at %}
+                    <p><strong>Начата:</strong> {{ task.started_at|date:"d.m.Y H:i" }}</p>
+                    {% endif %}
+
+                    {% if task.completed_at %}
+                    <p><strong>Завершена:</strong> {{ task.completed_at|date:"d.m.Y H:i" }}</p>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Кнопки -->
+            <div class="d-flex justify-content-between">
+                <a href="/tasks/" class="btn btn-secondary">Отмена</a>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+        </form>
+
+        <!-- Блок комментариев (ОТДЕЛЬНО от основной формы) -->
+        {% if task %}
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5>Комментарии</h5>
+            </div>
+            <div class="card-body">
+                <!-- Список комментариев -->
+                <div class="mb-4">
+                    {% for comment in comments %}
+                    <div class="border-bottom mb-3 pb-2">
+                        <div class="d-flex justify-content-between">
+                            <strong>{{ comment.author.get_full_name|default:comment.author.username }}</strong>
+                            <small class="text-muted">{{ comment.created_at|date:"d.m.Y H:i" }}</small>
+                        </div>
+                        <p class="mb-1">{{ comment.text }}</p>
+                    </div>
+                    {% empty %}
+                    <p class="text-muted">Пока нет комментариев</p>
+                    {% endfor %}
+                </div>
+
+                <!-- Форма добавления комментария (отдельная, не вложенная) -->
+                <form method="post" action="/tasks/{{ task.id }}/add_comment/">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="comment_text" class="form-label">Добавить комментарий</label>
+                        <textarea class="form-control" id="comment_text" name="text" rows="2" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-primary">Отправить</button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

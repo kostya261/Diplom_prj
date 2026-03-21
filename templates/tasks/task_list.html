@@ -1,0 +1,92 @@
+<!-- templates/tasks/task_list.html -->
+{% extends "base.html" %}
+
+{% block title %}Задачи{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">Задачи</h1>
+        <a href="/tasks/add/" class="btn btn-success mb-3">Создать задачу</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Ответственный</th>
+                <th>Соисполнители</th>
+                <th>Статус</th>
+                <th>Приоритет</th>
+                <th>Срок</th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.id }}</td>
+                <td>{{ task.title }}</td>
+                <td>{{ task.responsible.get_full_name|default:task.responsible.username }}</td>
+                <td>
+                    {% if task.co_executors.exists %}
+                    {{ task.co_executors.all|join:", " }}
+                    {% else %}
+                    —
+                    {% endif %}
+                </td>
+                <td>
+                        <span class="badge
+                            {% if task.status == 'new' %}bg-primary
+                            {% elif task.status == 'in_progress' %}bg-warning
+                            {% elif task.status == 'on_hold' %}bg-secondary
+                            {% elif task.status == 'done' %}bg-success
+                            {% endif %}">
+                            {{ task.get_status_display }}
+                        </span>
+                </td>
+                <td>
+                        <span class="badge
+                            {% if task.priority == 'low' %}bg-light text-dark
+                            {% elif task.priority == 'medium' %}bg-info
+                            {% elif task.priority == 'high' %}bg-warning
+                            {% elif task.priority == 'critical' %}bg-danger
+                            {% endif %}">
+                            {{ task.get_priority_display }}
+                        </span>
+                </td>
+                <td>{{ task.deadline|date:"d.m.Y" }}</td>
+                <td>
+                    <a href="/tasks/{{ task.id }}/edit/" class="btn btn-sm btn-primary">✏️</a>
+                    <a href="/tasks/{{ task.id }}/report/" class="btn btn-sm btn-info" target="_blank">PDF</a>
+                    <a href="/tasks/{{ task.id }}/order/" class="btn btn-sm btn-secondary" target="_blank">Наряд</a>
+                    <button class="btn btn-sm btn-danger" onclick="deleteTask({{ task.id }})">🗑️</button>
+                    {% if task.status == 'new' %}
+                        <a href="/tasks/{{ task.id }}/status/in_progress/" class="btn btn-sm btn-success" title="Взять в работу">▶️</a>
+                    {% endif %}
+
+                    {% if task.status == 'in_progress' %}
+                        <a href="/tasks/{{ task.id }}/status/on_hold/" class="btn btn-sm btn-warning" title="Поставить на паузу">⏸️</a>
+                        <a href="/tasks/{{ task.id }}/status/done/" class="btn btn-sm btn-success" title="Завершить">✅</a>
+                    {% endif %}
+
+                    {% if task.status == 'on_hold' %}
+                        <a href="/tasks/{{ task.id }}/status/in_progress/" class="btn btn-sm btn-success" title="Продолжить">▶️</a>
+                    {% endif %}
+
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8" class="text-center">Нет задач</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
